@@ -1258,6 +1258,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1787931702}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 2.605}
+--- !u!1 &709099461
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 709099462}
+  m_Layer: 0
+  m_Name: PaintStuff
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &709099462
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709099461}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2146378298}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &762771324
 GameObject:
   m_ObjectHideFlags: 0
@@ -4009,6 +4040,8 @@ MonoBehaviour:
   waitAfterLoad: 3
   proceedButton: {fileID: 762771324}
   Updating: {fileID: 6513424489819196256, guid: d364dc51480e8014cbc641561c64a892, type: 3}
+  paintArea: {fileID: 5084215537045033997, guid: e3a941aac08c61e4a8c6601666b9293f, type: 3}
+  paintParent: {fileID: 709099462}
   uiParent: {fileID: 607045292}
 --- !u!1 &1289915992
 GameObject:
@@ -5068,7 +5101,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1482604522}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1152751755}
+        m_TargetAssemblyTypeName: PcActions, Assembly-CSharp
+        m_MethodName: onPaintPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1482604522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6494,6 +6539,7 @@ Transform:
   - {fileID: 819700943}
   - {fileID: 1152751751}
   - {fileID: 607045292}
+  - {fileID: 709099462}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2146378299

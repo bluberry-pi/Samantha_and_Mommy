@@ -8,17 +8,20 @@ public class PcActions : MonoBehaviour
     public float waitAfterLoad = 3f;
     public GameObject proceedButton;
     public GameObject Updating;
+    public GameObject paintArea;
+    public Transform paintParent;
 
     public Transform uiParent;
 
     GameObject updateInstance;
     GameObject loadingInstance;
+    GameObject paintWindow;
 
     bool cancelled = false;
 
     void Update()
     {
-        // 🔴 If loading screen disappears → kill everything
+        // If loading screen disappears → kill everything
         if (!cancelled && loadingInstance == null)
         {
             CancelEverything();
@@ -50,6 +53,11 @@ public class PcActions : MonoBehaviour
     {
         cancelled = false;
         StartCoroutine(LoadSequence());
+    }
+
+    public void onPaintPress()
+    {
+        paintWindow = Instantiate(paintArea, paintParent);
     }
 
     IEnumerator LoadSequence()
