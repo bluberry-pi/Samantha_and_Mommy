@@ -6685,6 +6685,7 @@ MonoBehaviour:
   Teddy: {fileID: 1930527016}
   TeddyOnHand: {fileID: 693000516}
   TeddyOnPc: {fileID: 142890860}
+  pcLight: {fileID: 1410307855}
   bedZone: {fileID: 1930527022}
   desktopZone: {fileID: 509375153}
 --- !u!1 &1809298675

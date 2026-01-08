@@ -5,9 +5,11 @@ public class TeddyPickup : MonoBehaviour
     public SpriteRenderer Teddy;
     public GameObject TeddyOnHand;
     public GameObject TeddyOnPc;
+    public GameObject pcLight;
 
     public Collider2D bedZone;
     public Collider2D desktopZone;
+    public static bool teddyOnPc = false;
 
     bool playerNearBed;
     bool playerNearDesktop;
@@ -22,6 +24,8 @@ public class TeddyPickup : MonoBehaviour
 
     void Update()
     {
+        pcLight.SetActive(TurnPcOn.pcPowered && !teddyOnPc);
+
         playerNearBed = bedZone.IsTouching(playerCol);
         playerNearDesktop = desktopZone.IsTouching(playerCol);
 
@@ -55,6 +59,7 @@ public class TeddyPickup : MonoBehaviour
                 TeddyOnHand.SetActive(false);
                 TeddyOnPc.SetActive(true);
                 holdingTeddy = false;
+                teddyOnPc = true;
             }
 
             //TAKE TEDDY FROM PC
@@ -65,6 +70,7 @@ public class TeddyPickup : MonoBehaviour
                 TeddyOnHand.SetActive(true);
                 TeddyOnPc.SetActive(false);
                 holdingTeddy = true;
+                teddyOnPc = false;
             }
         }
     }
