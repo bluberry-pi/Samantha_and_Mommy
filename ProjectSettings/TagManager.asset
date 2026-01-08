@@ -10,6 +10,7 @@ TagManager:
   - GameStuff
   - Close
   - Teddy
+  - Mommy
   layers:
   - Default
   - TransparentFX
@@ -18,11 +19,11 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Mommy
   - 
   - PcScreen
   - 
-  - 
+  - WorldBounds
   - 
   - 
   - 
