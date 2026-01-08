@@ -4,12 +4,18 @@ public class DownloadSpeedIncreaseInstances : MonoBehaviour
 {
     public DownloadManager downloadManager;
     public WindowRotation windowRotation;
+
+    [Header("Shake Settings")]
     public float minShakeSpeed = 2f;
     public float buildSpeed = 1.4f;
     public float decaySpeed = 0.8f;
+    public float maxShakeBoost = 2f;
+
+    [Header("Vertical Bonus")]
+    public float verticalBaseBoost = 0.5f;   // Always active when vertical
 
     float lastY;
-    float boost = 0f;
+    float shakeBoost = 0f;
 
     void Start()
     {
@@ -18,13 +24,26 @@ public class DownloadSpeedIncreaseInstances : MonoBehaviour
 
     void Update()
     {
+        float totalBoost = 0f;
+
         if (windowRotation.vertical)
         {
-            HandleShaking();
+            totalBoost += GetVerticalBonus();
+            totalBoost += GetShakeBonus();
         }
-    }
+        else
+        {
+            // If not vertical, shake bonus decays
+            shakeBoost = Mathf.Max(0f, shakeBoost - Time.deltaTime * decaySpeed);
+        }
 
-    void HandleShaking()
+        downloadManager.shakeBoost = totalBoost;
+    }
+    float GetVerticalBonus()
+    {
+        return verticalBaseBoost;
+    }
+    float GetShakeBonus()
     {
         float currentY = transform.position.y;
         float ySpeed = Mathf.Abs(currentY - lastY) / Mathf.Max(Time.deltaTime, 0.0001f);
@@ -32,18 +51,14 @@ public class DownloadSpeedIncreaseInstances : MonoBehaviour
 
         if (ySpeed > minShakeSpeed)
         {
-            float finalSpeed = downloadManager.secondHalfSpeed + boost;
-            float remaining = 2f - finalSpeed;
-            float resistance = Mathf.Clamp01(remaining / 2f);
-
-            boost += (ySpeed * 0.02f) * buildSpeed * resistance;
+            shakeBoost += (ySpeed * 0.02f) * buildSpeed;
         }
         else
         {
-            boost -= Time.deltaTime * decaySpeed;
+            shakeBoost -= Time.deltaTime * decaySpeed;
         }
 
-        boost = Mathf.Max(0f, boost);
-        downloadManager.shakeBoost = boost;
+        shakeBoost = Mathf.Clamp(shakeBoost, 0f, maxShakeBoost);
+        return shakeBoost;
     }
 }

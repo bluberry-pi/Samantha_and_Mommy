@@ -8,7 +8,7 @@ public class DownloadManager : MonoBehaviour
     public TextMeshProUGUI speedText;
 
     [Header("Download Speeds")]
-    public float firstHalfSpeed = 25f;
+    public float firstHalfSpeed = 5f;
     public float secondHalfSpeed = 0.5f;
 
     [HideInInspector] public float shakeBoost = 0f;
