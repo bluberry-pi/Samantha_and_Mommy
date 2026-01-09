@@ -8196,10 +8196,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enabledRandom: 1
-  minCalmTime: 10
-  maxCalmTime: 30
+  minCalmTime: 3
+  maxCalmTime: 8
+  cooldownAfterDrain: 10
   randomFillSpeed: 10
-  randomDrainSpeed: 1
+  randomDrainSpeed: 10
 --- !u!1 &2091717354
 GameObject:
   m_ObjectHideFlags: 0

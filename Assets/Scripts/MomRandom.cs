@@ -5,10 +5,11 @@ public class MomRandom : MonoBehaviour
     public bool enabledRandom = true;
     public float minCalmTime = 6f;
     public float maxCalmTime = 14f;
+    public float cooldownAfterDrain = 10f;
     public float randomFillSpeed = 2f;
     public float randomDrainSpeed = 1f;
     
-    public enum MomState { Calm, Filling, Draining }
+    public enum MomState { Calm, Filling, Draining, Cooldown }
     public MomState CurrentState { get; private set; } = MomState.Calm;
     
     float timer;
@@ -33,7 +34,7 @@ public class MomRandom : MonoBehaviour
                 CurrentState = MomState.Filling;
                 Debug.Log("[MomRandom] STATE → Filling (going to max)");
             }
-            else if (CurrentState == MomState.Draining)
+            else if (CurrentState == MomState.Cooldown)
             {
                 CurrentState = MomState.Calm;
                 timer = Random.Range(minCalmTime, maxCalmTime);
@@ -55,9 +56,9 @@ public class MomRandom : MonoBehaviour
     {
         if (CurrentState == MomState.Draining)
         {
-            CurrentState = MomState.Calm;
-            timer = Random.Range(minCalmTime, maxCalmTime);
-            Debug.Log($"[MomRandom] STATE → Calm, next trigger in {timer}s");
+            CurrentState = MomState.Cooldown;
+            timer = cooldownAfterDrain;
+            Debug.Log($"[MomRandom] STATE → Cooldown for {cooldownAfterDrain}s before going Calm");
         }
     }
 }

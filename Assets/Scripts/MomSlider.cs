@@ -43,32 +43,30 @@ public class MomSlider : MonoBehaviour
     
     void HandleMomRandom()
     {
-        if (momRandom != null)
+        if (momRandom != null && momRandom.CurrentState == MomRandom.MomState.Filling)
         {
-            if (momRandom.CurrentState == MomRandom.MomState.Filling)
+            currentSliderValue += momRandom.randomFillSpeed * Time.deltaTime;
+            currentSliderValue = Mathf.Clamp(currentSliderValue, 0f, maxSliderValue);
+            
+            if (currentSliderValue >= maxSliderValue)
             {
-                currentSliderValue += momRandom.randomFillSpeed * Time.deltaTime;
-                currentSliderValue = Mathf.Clamp(currentSliderValue, 0f, maxSliderValue);
-                
-                if (currentSliderValue >= maxSliderValue)
-                {
-                    momRandom.NotifyReachedMax();
-                    Debug.Log("[MomSlider] Reached MAX, notified MomRandom");
-                }
-                return;
+                momRandom.NotifyReachedMax();
+                Debug.Log("[MomSlider] Reached MAX, notified MomRandom");
             }
-            else if (momRandom.CurrentState == MomRandom.MomState.Draining)
+            return;
+        }
+        
+        if (momRandom != null && momRandom.CurrentState == MomRandom.MomState.Draining)
+        {
+            currentSliderValue -= momRandom.randomDrainSpeed * Time.deltaTime;
+            currentSliderValue = Mathf.Clamp(currentSliderValue, 0f, maxSliderValue);
+            
+            if (currentSliderValue <= 0f)
             {
-                currentSliderValue -= momRandom.randomDrainSpeed * Time.deltaTime;
-                currentSliderValue = Mathf.Clamp(currentSliderValue, 0f, maxSliderValue);
-                
-                if (currentSliderValue <= 0f)
-                {
-                    momRandom.NotifyReachedZero();
-                    Debug.Log("[MomSlider] Reached ZERO, notified MomRandom");
-                }
-                return;
+                momRandom.NotifyReachedZero();
+                Debug.Log("[MomSlider] Reached ZERO, notified MomRandom");
             }
+            return;
         }
         
         HandleWalking();
