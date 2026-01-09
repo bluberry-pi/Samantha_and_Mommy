@@ -8196,8 +8196,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enabledRandom: 1
-  minCalmTime: 3
-  maxCalmTime: 8
+  minCalmTime: 20
+  maxCalmTime: 40
   cooldownAfterDrain: 10
   randomFillSpeed: 10
   randomDrainSpeed: 10
