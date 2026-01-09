@@ -7,6 +7,7 @@ public class MommyScript : MonoBehaviour
     public float speed = 5f;
     public float rushSpeed = 10f;
     public float intimidateTime = 3f;
+    public float waitTime = 2f; 
 
     public MomSlider momSlider;
     public EyesScript eyes;
@@ -53,7 +54,7 @@ public class MommyScript : MonoBehaviour
         yield return new WaitForSeconds(intimidateTime);
 
         mommy.linearVelocity = Vector2.zero;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(waitTime);
 
         hardWaiting = false;
         if (sleep.sleeping && eyes.leftEye.activeSelf && eyes.rightEye.activeSelf)
