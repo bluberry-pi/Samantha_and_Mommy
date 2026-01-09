@@ -1293,6 +1293,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 466189252}
+  - component: {fileID: 466189253}
   m_Layer: 0
   m_Name: Eyes
   m_TagString: Untagged
@@ -1313,10 +1314,24 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1807442016}
   - {fileID: 1488106066}
+  - {fileID: 1807442016}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &466189253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 466189251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cebb81484ba9e764489402efe274710b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftEye: {fileID: 1488106065}
+  rightEye: {fileID: 1807442015}
 --- !u!1 &509375149
 GameObject:
   m_ObjectHideFlags: 0
@@ -4570,8 +4585,6 @@ MonoBehaviour:
   sleepAnimation: {fileID: 8879115712746139407, guid: a5f4e42653cae34448598631dede516b, type: 3}
   wakeupAnimation: {fileID: 7621426384438171070, guid: 79816975851fe5b49aed0b943297fe31, type: 3}
   player: {fileID: 1787931700}
-  leftEye: {fileID: 1488106065}
-  rightEye: {fileID: 1807442015}
   fToInteract: {fileID: 2091717354}
 --- !u!1 &858369428
 GameObject:
