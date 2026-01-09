@@ -6,10 +6,15 @@ public class SleepAnimTrig : MonoBehaviour
     public GameObject sleepAnimation;
     public GameObject wakeupAnimation;
     public GameObject player;
+    public GameObject leftEye;
+    public GameObject rightEye;
 
     bool nearBed = false;
     bool sleeping = false;
     bool busy = false;
+
+    bool leftClosed = false;
+    bool rightClosed = false;
 
     GameObject sleepAnim;
     GameObject wakeAnim;
@@ -21,29 +26,56 @@ public class SleepAnimTrig : MonoBehaviour
     {
         playerSprite = player.GetComponent<SpriteRenderer>();
         playerCollider = player.GetComponent<Collider2D>();
+
+        leftEye.SetActive(false);
+        rightEye.SetActive(false);
     }
 
     void Update()
     {
+        // SLEEP / WAKE KEY
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("F PRESSED | sleeping=" + sleeping + " | nearBed=" + nearBed + " | busy=" + busy);
-
             if (busy) return;
 
             if (!sleeping && nearBed)
+            {
                 StartCoroutine(Sleep());
+            }
             else if (sleeping)
+            {
+                // BLOCK wake if BOTH eyes are closed
+                if (leftClosed && rightClosed)
+                {
+                    Debug.Log("Can't wake up — BOTH eyes are closed!");
+                    return;
+                }
+
                 StartCoroutine(WakeUp());
+            }
         }
+
+        if (sleeping && !busy)
+        {
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                leftClosed = !leftClosed;
+                leftEye.SetActive(leftClosed);
+            }
+
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                rightClosed = !rightClosed;
+                rightEye.SetActive(rightClosed);
+            }
+        }
+
     }
 
     IEnumerator Sleep()
     {
         busy = true;
-        Debug.Log(">>> SLEEP START");
 
-        // Hide player but do NOT deactivate him
         playerSprite.enabled = false;
         playerCollider.enabled = false;
 
@@ -52,54 +84,46 @@ public class SleepAnimTrig : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
-        Debug.Log(">>> SLEEP COMPLETE");
         busy = false;
     }
 
     IEnumerator WakeUp()
     {
         busy = true;
-        Debug.Log(">>> WAKE START");
 
         if (sleepAnim) Destroy(sleepAnim);
 
         wakeAnim = Instantiate(wakeupAnimation);
         Animator anim = wakeAnim.GetComponent<Animator>();
 
-        yield return null; // wait one frame for animator to init
-
+        yield return null;
         float length = anim.GetCurrentAnimatorStateInfo(0).length;
-        Debug.Log("Wake anim length = " + length);
-
         yield return new WaitForSeconds(length);
 
         Destroy(wakeAnim);
 
-        // Restore player
         playerSprite.enabled = true;
         playerCollider.enabled = true;
 
+        // Reset eyes
+        leftClosed = false;
+        rightClosed = false;
+        leftEye.SetActive(false);
+        rightEye.SetActive(false);
+
         sleeping = false;
         busy = false;
-        Debug.Log(">>> WAKE COMPLETE");
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.CompareTag("Player"))
-        {
             nearBed = true;
-            Debug.Log("Player entered Bed");
-        }
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
         if (col.CompareTag("Player"))
-        {
             nearBed = false;
-            Debug.Log("Player left Bed");
-        }
     }
-
 }
