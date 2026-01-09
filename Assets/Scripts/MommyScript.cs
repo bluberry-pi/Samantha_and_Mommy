@@ -17,7 +17,7 @@ public class MommyScript : MonoBehaviour
 
     bool attacking;
     bool returning;
-    bool hardWaiting;   // ⛔ absolute wait lock
+    bool hardWaiting;
 
     void Start()
     {
@@ -53,17 +53,13 @@ public class MommyScript : MonoBehaviour
         yield return new WaitForSeconds(intimidateTime);
 
         mommy.linearVelocity = Vector2.zero;
-
-        // ⛔ HARD WAIT — nothing can bypass this
         yield return new WaitForSeconds(3f);
 
         hardWaiting = false;
-
-        // NOW check if player behaved
         if (sleep.sleeping && eyes.leftEye.activeSelf && eyes.rightEye.activeSelf)
             StartCoroutine(Return());
         else
-            StartCoroutine(Attack());   // keep threatening
+            StartCoroutine(Attack()); 
     }
 
     IEnumerator Return()
