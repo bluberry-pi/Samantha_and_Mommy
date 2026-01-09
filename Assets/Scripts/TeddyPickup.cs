@@ -10,6 +10,7 @@ public class TeddyPickup : MonoBehaviour
     public Collider2D bedZone;
     public Collider2D desktopZone;
     public static bool teddyOnPc = false;
+    public GameObject eToPickup;
 
     bool playerNearBed;
     bool playerNearDesktop;
@@ -28,6 +29,13 @@ public class TeddyPickup : MonoBehaviour
 
         playerNearBed = bedZone.IsTouching(playerCol);
         playerNearDesktop = desktopZone.IsTouching(playerCol);
+
+        if (playerNearBed)
+        {
+            eToPickup.SetActive(true);
+        } else {
+            eToPickup.SetActive(false);
+        }
 
         if (Input.GetKeyDown(KeyCode.E))
         {

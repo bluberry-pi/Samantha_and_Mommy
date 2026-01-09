@@ -8,6 +8,7 @@ public class SleepAnimTrig : MonoBehaviour
     public GameObject player;
     public GameObject leftEye;
     public GameObject rightEye;
+    public GameObject fToInteract;
 
     bool nearBed = false;
     bool sleeping = false;
@@ -119,11 +120,13 @@ public class SleepAnimTrig : MonoBehaviour
     {
         if (col.CompareTag("Player"))
             nearBed = true;
+        fToInteract.SetActive(true);
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
         if (col.CompareTag("Player"))
             nearBed = false;
+        fToInteract.SetActive(false);
     }
 }
