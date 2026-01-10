@@ -16,9 +16,6 @@ public class DownloadManager : MonoBehaviour
     float currentProgress = 0f;
     bool completed = false;
 
-    float timer;
-    public float waitTime = 1f;
-
     public static event Action OnDownloadComplete;
     public static bool DownloadFinished = false;
 
@@ -27,7 +24,6 @@ public class DownloadManager : MonoBehaviour
         DownloadFinished = false;
         completed = false;
         currentProgress = 0f;
-        timer = 0f;
 
         if (downloadSlider)
             downloadSlider.value = 0f;
@@ -35,11 +31,7 @@ public class DownloadManager : MonoBehaviour
 
     void Update()
     {
-        if (completed)
-        {
-            HandleAutoDestroy();
-            return;
-        }
+        if (completed) return;
 
         if (currentProgress >= 1f)
         {
@@ -65,18 +57,7 @@ public class DownloadManager : MonoBehaviour
         if (downloadSlider) downloadSlider.value = 1f;
         if (speedText) speedText.text = "Download Complete";
 
+        Debug.Log("🔥 DOWNLOAD COMPLETE");
         OnDownloadComplete?.Invoke();
-    }
-
-    void HandleAutoDestroy()
-    {
-        timer += Time.deltaTime;
-        if (timer < waitTime) return;
-
-        if (transform.parent != null)
-        {
-            Destroy(transform.parent.gameObject);
-        }
-
     }
 }

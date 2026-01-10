@@ -4,11 +4,9 @@ using TMPro;
 public class PasswordChecker : MonoBehaviour
 {
     public TMP_InputField inputField;
-    //public TextMeshProUGUI resultText;
 
     [Header("Correct Password")]
     public string correctPassword = "hello123";
-
 
     public void CheckPassword()
     {
@@ -17,10 +15,18 @@ public class PasswordChecker : MonoBehaviour
         if (typed == correctPassword)
         {
             Debug.Log("ACCESS GRANTED");
+
+            // Destroy EVERYTHING tagged GameStuff
+            GameObject[] stuff = GameObject.FindGameObjectsWithTag("GameStuff");
+
+            foreach (GameObject g in stuff)
+            {
+                Destroy(g);
+            }
         }
         else
         {
-             Debug.Log("ACCESS DENIED");
+            Debug.Log("ACCESS DENIED");
         }
 
         inputField.text = "";
