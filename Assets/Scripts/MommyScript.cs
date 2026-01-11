@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class MommyScript : MonoBehaviour
 {
+    [Header("Threat Audio Distances")]
+    public float audibleStartDistance = 20f;   // when mom music starts faint
+    public float fullVolumeDistance = 6f;      // when mom is max loud
+
+    [Header("Threat Audio")]
+    public Transform player;
+    public float maxThreatDistance = 10f;
+
     public Rigidbody2D mommy;
     public float speed = 5f;
     public float rushSpeed = 10f;
@@ -16,6 +24,7 @@ public class MommyScript : MonoBehaviour
     public GameOverConditions brain;
 
     Vector2 startPos;
+    Vector2 lastKnownPlayerPos;
     Vector2 dir = Vector2.right;
 
     bool attacking;
@@ -31,12 +40,14 @@ public class MommyScript : MonoBehaviour
     {
         if (momSlider.momAngry && !attacking && !returning && !hardWaiting)
             StartCoroutine(Attack());
+
+        UpdateThreatMusic();
     }
+
 
     IEnumerator Attack()
     {
         attacking = true;
-        AudioManager.Instance.PlayMomMusic();
         mommy.linearVelocity = dir * speed;
         yield return null;
     }
@@ -61,7 +72,6 @@ public class MommyScript : MonoBehaviour
         {
             yield return new WaitForSeconds(waitTime);
             hardWaiting = false;
-            AudioManager.Instance.StopMomMusic();
             StartCoroutine(Return());
         }
         else
@@ -84,5 +94,25 @@ public class MommyScript : MonoBehaviour
         mommy.position = startPos;
         mommy.linearVelocity = Vector2.zero;
         returning = false;
+    }
+    void UpdateThreatMusic()
+    {
+        if (player && player.gameObject.activeInHierarchy)
+            lastKnownPlayerPos = player.position;
+
+        bool momMoving = mommy.linearVelocity.magnitude > 0.05f;
+
+        if (!momMoving)
+        {
+            AudioManager.Instance.SetMomThreat(0f, false);
+            return;
+        }
+
+        float dist = Vector2.Distance(mommy.position, lastKnownPlayerPos);
+
+        float proximity01 = Mathf.InverseLerp(audibleStartDistance, fullVolumeDistance, dist);
+        // NO extra invert here
+
+        AudioManager.Instance.SetMomThreat(proximity01, true);
     }
 }

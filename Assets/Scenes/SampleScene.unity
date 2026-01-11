@@ -1384,10 +1384,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9876b1eae370ebc4e89a67585e391554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicSource: {fileID: 833483906}
-  momMusicSource: {fileID: 1126300526}
-  bg_music: {fileID: 8300000, guid: fe01b3f39bd7e0041816fc2230f675a5, type: 3}
-  mom_music: {fileID: 8300000, guid: 82357d2f98b0d19458986d1423873828, type: 3}
+  bgSource: {fileID: 833483906}
+  momSource: {fileID: 1126300526}
+  bgDuckedVolume: 0.3
+  maxMomVolume: 1
 --- !u!4 &489996788
 Transform:
   m_ObjectHideFlags: 0
@@ -3014,7 +3014,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: fe01b3f39bd7e0041816fc2230f675a5, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -6177,8 +6177,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_Resource: {fileID: 8300000, guid: b2c59841b1e83b343bfc026f22314a78, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -9543,6 +9543,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 746b6749a7507784c9524660e7bda0aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audibleStartDistance: 31.3
+  fullVolumeDistance: 6
+  player: {fileID: 1787931702}
+  maxThreatDistance: 10
   mommy: {fileID: 1990838654}
   speed: 5
   rushSpeed: 15

@@ -4,11 +4,11 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
 
-    [SerializeField] AudioSource musicSource;
-    [SerializeField] AudioSource momMusicSource;
+    public AudioSource bgSource;
+    public AudioSource momSource;
 
-    public AudioClip bg_music;
-    public AudioClip mom_music;
+    public float bgDuckedVolume = 0.3f;   // BG volume while mom is active
+    public float maxMomVolume = 1f;
 
     void Awake()
     {
@@ -16,29 +16,24 @@ public class AudioManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    void Start()
+    public void SetMomThreat(float proximity01, bool momMoving)
     {
-        musicSource.clip = bg_music;
-        musicSource.loop = true;
-        musicSource.Play();
+        if (!momMoving)
+        {
+            momSource.volume = 0;
+            if (momSource.isPlaying) momSource.Stop();
+            bgSource.volume = 1f;
+            return;
+        }
 
-        momMusicSource.clip = mom_music;
-        momMusicSource.loop = true;
-    }
+        // Start mom music if not playing
+        if (!momSource.isPlaying)
+            momSource.Play();
 
-    public void PlayMomMusic()
-    {
-        if (momMusicSource.isPlaying) return;
+        // Duck background music
+        bgSource.volume = bgDuckedVolume;
 
-        musicSource.Stop();
-        momMusicSource.Play();
-    }
-
-    public void StopMomMusic()
-    {
-        if (!momMusicSource.isPlaying) return;
-
-        momMusicSource.Stop();
-        musicSource.Play();
+        // Linear volume increase based on distance
+        momSource.volume = Mathf.Lerp(0f, maxMomVolume, proximity01);
     }
 }
