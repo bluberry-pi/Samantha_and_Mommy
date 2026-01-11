@@ -5,7 +5,7 @@ public class EyesScript : MonoBehaviour
     public GameObject leftEye;
     public GameObject rightEye;
 
-    public GameObject blockWhileExists;
+    public GameObject blockWhileExists;   // ← drag your cutscene controller here
 
     bool leftClosed = false;
     bool rightClosed = false;

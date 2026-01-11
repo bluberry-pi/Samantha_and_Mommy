@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (SceneBeginning.CutsceneActive) return;
         movement.x = Input.GetAxisRaw("WASD_Horizontal");
         movement.y = Input.GetAxisRaw("WASD_Vertical");
         movement.Normalize();

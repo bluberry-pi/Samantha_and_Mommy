@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class SceneBeginning : MonoBehaviour
 {
+    // GLOBAL CUTSCENE LOCK
     public static bool CutsceneActive = false;
+
     public GameObject momGonePrefab;
     public GameObject playGamesPrefab;
     public GameObject leftPrefab;
@@ -22,6 +24,7 @@ public class SceneBeginning : MonoBehaviour
 
     void Start()
     {
+        CutsceneActive = true;                // 🚧 Lock gameplay
         momGone = Instantiate(momGonePrefab, transform);
         stage = 1;
     }
@@ -42,7 +45,7 @@ public class SceneBeginning : MonoBehaviour
         if (stage == 2 && timer >= Timer)
         {
             Destroy(playGames);
-            left = Instantiate(leftPrefab, transform);
+            left  = Instantiate(leftPrefab, transform);
             right = Instantiate(rightPrefab, transform);
             stage = 3;
         }
@@ -52,13 +55,15 @@ public class SceneBeginning : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.C) && left != null)
             {
                 Destroy(left);
-                if (left1 != null) Destroy(left1);
+                if (left1) Destroy(left1);
+                left = null;
             }
 
             if (Input.GetKeyDown(KeyCode.V) && right != null)
             {
                 Destroy(right);
-                if (right1 != null) Destroy(right1);
+                if (right1) Destroy(right1);
+                right = null;
             }
 
             if (left == null && right == null)
@@ -66,6 +71,9 @@ public class SceneBeginning : MonoBehaviour
         }
 
         if (stage == 4)
+        {
+            CutsceneActive = false;            // 🟢 Unlock gameplay
             Destroy(gameObject);
+        }
     }
 }

@@ -22,6 +22,7 @@ public class NightClock : MonoBehaviour
 
     void Update()
     {
+        if (SceneBeginning.CutsceneActive) return;
         currentMinutes += Time.deltaTime * timeSpeed;
 
         int endMinutes = (24 + endHour) * 60;   // 27:00 → 3AM

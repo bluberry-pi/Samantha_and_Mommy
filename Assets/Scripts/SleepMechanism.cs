@@ -28,6 +28,7 @@ public class SleepAnimTrig : MonoBehaviour
 
     void Update()
     {
+        if (SceneBeginning.CutsceneActive) return;
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (busy) return;

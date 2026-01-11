@@ -40,6 +40,7 @@ public class MomSlider : MonoBehaviour
 
     void Update()
     {
+        if (SceneBeginning.CutsceneActive) return;
         FindWindow();
 
         if (momRandom && momRandom.CurrentState == MomRandom.MomState.Filling)

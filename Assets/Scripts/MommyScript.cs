@@ -40,6 +40,7 @@ public class MommyScript : MonoBehaviour
 
     void Update()
     {
+        if (SceneBeginning.CutsceneActive) return;
         if (momSlider.momAngry && !attacking && !returning && !hardWaiting)
             StartCoroutine(Attack());
 

@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
+        if (SceneBeginning.CutsceneActive) return;
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }

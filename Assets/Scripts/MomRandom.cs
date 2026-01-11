@@ -21,6 +21,7 @@ public class MomRandom : MonoBehaviour
 
     void Update()
     {
+        if (SceneBeginning.CutsceneActive) return;
         if (!enabledRandom) return;
 
         timer -= Time.deltaTime;
