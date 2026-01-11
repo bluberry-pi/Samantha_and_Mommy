@@ -1,18 +1,16 @@
 using UnityEngine;
-using UnityEngine.Rendering;
-
+using System.Collections;
 public class SoundFXManager : MonoBehaviour
 {
     public static SoundFXManager instance;
     [SerializeField] private AudioSource soundFXObject;
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
     }
-
     public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform, float volume)
     {
         //spawn in gameObject;
@@ -32,6 +30,19 @@ public class SoundFXManager : MonoBehaviour
 
         //destroy the clip after it is done playing
         Destroy(audioSource.gameObject, clipLength);
-        
+
     }
+
+    public IEnumerator PlayAndWait(AudioClip clip, Transform spawnTransform, float volume)
+    {
+        AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+        audioSource.clip = clip;
+        audioSource.volume = volume;
+        audioSource.Play();
+
+        yield return new WaitForSeconds(audioSource.clip.length);
+
+        Destroy(audioSource.gameObject);
+    }
+
 }

@@ -2333,6 +2333,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sleep: {fileID: 852831850}
   eyes: {fileID: 466189253}
+  momPart1: {fileID: 1691093103}
+  momPart2: {fileID: 579158664}
+  whyPcOnPart1: {fileID: 8300000, guid: 66e25e4ec27de1a4d9500273c1e123bc, type: 3}
+  whyPcOnPart2: {fileID: 8300000, guid: d8bf8ee9eb385114eaf3073afd319f99, type: 3}
+  whyEyesOpenPart1: {fileID: 8300000, guid: d2745ff0f03b6f14386b0cdd87f889c7, type: 3}
+  whyEyesOpenPart2: {fileID: 8300000, guid: 312193d222056e943b77f55945f93dd9, type: 3}
+  whyNoSleep: {fileID: 8300000, guid: da59a93fa98cec1458d7e0aa44442666, type: 3}
 --- !u!4 &630720701
 Transform:
   m_ObjectHideFlags: 0
@@ -9543,8 +9550,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 746b6749a7507784c9524660e7bda0aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audibleStartDistance: 31.3
-  fullVolumeDistance: 6
+  audibleStartDistance: 25
+  fullVolumeDistance: 3.4
   player: {fileID: 1787931702}
   maxThreatDistance: 10
   mommy: {fileID: 1990838654}
