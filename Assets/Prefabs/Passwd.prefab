@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputField: {fileID: 2881882568993663448}
-  correctPassword: hello123
+  correctPassword: SamanthaAndmommy
 --- !u!1 &2366674520500513319
 GameObject:
   m_ObjectHideFlags: 0
