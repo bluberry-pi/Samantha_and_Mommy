@@ -127,4 +127,11 @@ public class MomSlider : MonoBehaviour
             lastY = shakyWindow.position.y;
         }
     }
+
+    // FIX: Added method to reset the slider value
+    public void ResetSlider()
+    {
+        current = 0f;
+        momSlider.value = 0f;
+    }
 }

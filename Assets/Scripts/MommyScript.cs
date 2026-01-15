@@ -87,6 +87,7 @@ public class MommyScript : MonoBehaviour
     {
         returning = true;
         momSlider.momAngry = false;
+        momSlider.ResetSlider(); // FIX: Reset the slider value to prevent immediate re-trigger
 
         while (Vector2.Distance(mommy.position, startPos) > 0.05f)
         {
