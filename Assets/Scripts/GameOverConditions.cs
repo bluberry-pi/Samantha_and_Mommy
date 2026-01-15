@@ -21,6 +21,8 @@ public class GameOverConditions : MonoBehaviour
     {
         if (TurnPcOn.PcIsOn)
         {
+            // FIX: Force eyes open BEFORE checking anything
+            if (eyes) eyes.ForceEyesOpen();
             StartCoroutine(PcOnSequence());
             return false;
         }
@@ -28,12 +30,16 @@ public class GameOverConditions : MonoBehaviour
         if (sleep.sleeping && !eyes.AreEyesClosed())
         {
             Debug.Log("why are u awake samantha");
+            // FIX: Force eyes open BEFORE checking anything
+            if (eyes) eyes.ForceEyesOpen();
             StartCoroutine(WhyEyesOpenSequence());
             return false;
         }
 
         if (!sleep.sleeping)
         {
+            // FIX: Force eyes open BEFORE checking anything
+            if (eyes) eyes.ForceEyesOpen();
             StartCoroutine(NoSleepSequence());
             return false;
         }

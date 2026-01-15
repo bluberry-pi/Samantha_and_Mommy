@@ -13,6 +13,7 @@ public class EyesScript : MonoBehaviour
 
     bool leftClosed = false;
     bool rightClosed = false;
+    bool disableEyes = false; // FIX: Flag to disable eyes during game over
 
     public bool AreEyesClosed()   // 🔥 clean public API
     {
@@ -23,6 +24,7 @@ public class EyesScript : MonoBehaviour
     {
         leftEye.gameObject.SetActive(false);
         rightEye.gameObject.SetActive(false);
+        disableEyes = false;
     }
 
     void Update()
@@ -35,6 +37,10 @@ public class EyesScript : MonoBehaviour
         }
 
         if (blockWhileExists && blockWhileExists.activeInHierarchy)
+            return;
+
+        // FIX: Prevent eye input when disabled (during game over)
+        if (disableEyes)
             return;
 
         if (Input.GetKeyDown(KeyCode.C))
@@ -74,6 +80,13 @@ public class EyesScript : MonoBehaviour
     {
         if (!downloadManager) return;
 
+        // FIX: Don't apply eye bonus when disabled
+        if (disableEyes)
+        {
+            downloadManager.eyeBonus = 0f;
+            return;
+        }
+
         downloadManager.eyeBonus = AreEyesClosed() ? downloadManager.eyeClosedBonus : 0f;
     }
 
@@ -92,5 +105,21 @@ public class EyesScript : MonoBehaviour
             c.a = alpha;
             rightEye.color = c;
         }
+    }
+
+    // FIX: Force eyes open and disable functionality for game over
+    public void ForceEyesOpen()
+    {
+        disableEyes = true;
+        leftClosed = false;
+        rightClosed = false;
+        
+        if (leftEye) leftEye.gameObject.SetActive(false);
+        if (rightEye) rightEye.gameObject.SetActive(false);
+        if (peekObject) peekObject.SetActive(false);
+        
+        // Remove eye bonus
+        if (downloadManager)
+            downloadManager.eyeBonus = 0f;
     }
 }
