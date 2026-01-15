@@ -74,12 +74,22 @@ public class MomSlider : MonoBehaviour
 
     void HandleWalk()
     {
-        if (playerMovement.GetMovement().magnitude > 0.01f)
+        // FIX: Check if PlayerMovement is enabled before checking movement
+        // This prevents the slider from increasing when player is asleep
+        if (playerMovement != null && 
+            playerMovement.enabled && 
+            playerMovement.GetMovement().magnitude > 0.01f)
+        {
             current += increaseRate * Time.deltaTime;
+        }
         else if (!shaking)
+        {
             current -= decreaseRate * Time.deltaTime;
+        }
         else
+        {
             current -= shakeDecayRate * Time.deltaTime;
+        }
     }
 
     void HandleShake()

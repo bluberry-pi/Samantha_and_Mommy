@@ -11353,6 +11353,7 @@ MonoBehaviour:
   pcLight: {fileID: 509375155}
   brain: {fileID: 630720700}
   returnSpeed: 7
+  momRandom: {fileID: 1990838653}
 --- !u!114 &1990838653
 MonoBehaviour:
   m_ObjectHideFlags: 0
